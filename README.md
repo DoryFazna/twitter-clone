@@ -3,3 +3,5 @@ Twitter Clone (MERN Stack) 🐦 A full-stack Twitter clone built with the MERN s
 
 
 Tailwind & Daisy UI
+Tanstack Query
+React hot toast
