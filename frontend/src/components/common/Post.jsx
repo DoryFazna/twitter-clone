@@ -47,7 +47,7 @@ const Post = ({ post }) => {
 	const handleDeletePost = () => {
 		deletePost();
 	};
-
+ 
 	const handlePostComment = (e) => {
 		e.preventDefault();
 	};
