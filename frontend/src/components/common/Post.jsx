@@ -5,13 +5,16 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
 	const {data: authUser} = useQuery({ queryKey : ["authUser"]});
+	const queryClient = useQueryClient();
+
 
 	const postOwner = post.user;
 	const isLiked = false;
@@ -40,7 +43,7 @@ const Post = ({ post }) => {
 		},
 		onSuccess: () => {
 			toast.success("Post deleted successfully");
-			//queryClient.invalidateQueries({ queryKey: ["posts"] });
+			queryClient.invalidateQueries({ queryKey: ["posts"] });
 		},
 	});
 
