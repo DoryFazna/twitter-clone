@@ -10,11 +10,8 @@ import { toast } from "react-hot-toast";
 
 
 const Sidebar = () => {
-	const data = {
-		fullName: "John Doe",
-		username: "johndoe",
-		profileImg: "/avatars/boy1.png",
-	};
+	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
+
 
 	const queryClient = useQueryClient();
 	const { mutate: logout } = useMutation({
@@ -40,7 +37,6 @@ const Sidebar = () => {
 		},
 	});
 
-	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
 	return (
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>
@@ -70,7 +66,7 @@ const Sidebar = () => {
 
 					<li className='flex justify-center md:justify-start'>
 						<Link
-							to={`/profile/${data?.username}`}
+							to={`/profile/${authUser?.username}`}
 							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
 							<FaUser className='w-6 h-6' />
@@ -78,7 +74,7 @@ const Sidebar = () => {
 						</Link>
 					</li>
 				</ul>
-				{data && (
+				{authUser && (
 					<Link
 						to={`/profile/${authUser.username}`}
 						className='mt-auto mb-10 flex gap-2 items-start transition-all duration-300 hover:bg-[#181818] py-2 px-4 rounded-full'
