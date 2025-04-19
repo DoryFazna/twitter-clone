@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
+//custome hook to follow a user
 const useFollow = () => {
 	const queryClient = useQueryClient();
 
