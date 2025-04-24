@@ -6,6 +6,7 @@ import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkele
 import EditProfileModal from "./EditProfileModal";
 import { useQuery } from "@tanstack/react-query";
 import useFollow from "../../hooks/useFollow";
+import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 
 import { POSTS } from "../../utils/db/dummy";
 
@@ -69,6 +70,8 @@ const ProfilePage = () => {
 		}
 	};
 
+	const {updateProfile, isUpdatingProfile} = useUpdateUserProfile();
+
 	return (
 		<>
 			<div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
@@ -131,7 +134,7 @@ const ProfilePage = () => {
 								</div>
 							</div>
 							<div className='flex justify-end px-4 mt-5'>
-								{isMyProfile && <EditProfileModal />}
+								{isMyProfile && <EditProfileModal authUser={authUser} />}
 								{!isMyProfile && (
 									<button
 										className='btn btn-outline rounded-full btn-sm'
@@ -145,9 +148,13 @@ const ProfilePage = () => {
 								{(coverImg || profileImg) && (
 									<button
 										className='btn btn-primary rounded-full btn-sm text-white px-4 ml-2'
-										onClick={() => alert("Profile updated successfully")}
+										onClick={async () => {
+											await updateProfile({ coverImg, profileImg });
+											setProfileImg(null);
+											setCoverImg(null);
+										}}
 									>
-										Update
+										{isUpdatingProfile ? "Updating..." : "Update"}
 									</button>
 								)}
 							</div>
@@ -165,12 +172,12 @@ const ProfilePage = () => {
 											<>
 												<FaLink className='w-3 h-3 text-slate-500' />
 												<a
-													href='https://youtube.com/@asaprogrammer_'
+													href={user?.link?.startsWith('http') ? user.link : `https://${user?.link}`}
 													target='_blank'
 													rel='noreferrer'
 													className='text-sm text-blue-500 hover:underline'
 												>
-													youtube.com/@asaprogrammer_
+													{user?.link}
 												</a>
 											</>
 										</div>
