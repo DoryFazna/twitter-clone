@@ -41,8 +41,6 @@ VIEW THE LIVE DEMO HERE ----->  https://x-clone-yzf3.onrender.com
 - Socket.io  
 - JWT Authentication  
 
----
 
-## Project Structure
 
 
